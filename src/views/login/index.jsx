@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Input, Button, message, Spin } from "antd";
+import {Form, Input, Button, message, Spin, Tabs} from "antd";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 import "./index.less";
 import { login, getUserInfo } from "@/store/actions";
 import {LockOutlined, UserAddOutlined} from "@ant-design/icons";
+const {TabPane} =  Tabs
 
 const Login = (props) => {
   const { token, login, getUserInfo } = props;
@@ -38,8 +39,6 @@ const Login = (props) => {
   };
 
   const handleSubmit = (values) => {
-    // 阻止事件的默认行为
-    // event.preventDefault();
     const { username, password } = values;
     handleLogin(username, password);
   };
@@ -48,61 +47,55 @@ const Login = (props) => {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <DocumentTitle title={"用户登录"}>
       <div className="login-container">
-        <Form
-            className="content"
-            onFinish={handleSubmit}
-            onFinishFailed={handleFailed}
-        >
-          <div className="title">
-            <h2>用户登录</h2>
-          </div>
-          <Spin spinning={loading} tip="登录中...">
-            <Form.Item
-                label={'用户名'}
-                name={'username'}
-                rules={[{ required: true, message: 'Please input your 用户名!' }]}
+        <img className="img" src={require('@/assets/images/login-overlay.svg')}/>
+        <Tabs defaultActiveKey="1" className="content">
+          <TabPane tab="账号密码登录" key="1">
+            <Form
+                onFinish={handleSubmit}
+                onFinishFailed={handleFailed}
             >
-              <Input
-                  prefix={
-                    <UserAddOutlined />
-                  }
-                  placeholder="用户名"
-                />
-            </Form.Item>
-            <Form.Item
-                label={'密码'}
-                name={'password'}
-                rules={[{ required: true, message: 'Please input your 密码!' }]}>
-                <Input
-                  prefix={
-                    <LockOutlined style={{ color: "rgba(0,0,0,.25)" }}/>
-                  }
-                  type="password"
-                  placeholder="密码"
-                />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                登录
-              </Button>
-            </Form.Item>
-            <Form.Item>
-              <span>账号 : admin 密码 : 随便填</span>
-              <br />
-              <span>账号 : editor 密码 : 随便填</span>
-              <br />
-              <span>账号 : guest 密码 : 随便填</span>
-            </Form.Item>
-          </Spin>
-        </Form>
+              <Spin spinning={loading} tip="登录中...">
+                <Form.Item
+                    className="form"
+                    name={'username'}
+                    rules={[{ required: true, message: '请输入用户名!' }]}
+                >
+                  <Input
+                      prefix={
+                        <UserAddOutlined />
+                      }
+                      placeholder="请输入用户名"
+                  />
+                </Form.Item>
+                <Form.Item
+                    name={'password'}
+                    rules={[{ required: true, message: '请输入密码!' }]}>
+                  <Input
+                      prefix={
+                        <LockOutlined style={{ color: "rgba(0,0,0,.25)" }}/>
+                      }
+                      type="password"
+                      placeholder="请输入密码"
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="login-form-button"
+                  >
+                    登录
+                  </Button>
+                </Form.Item>
+                <Form.Item>
+                  <span>账号 : admin/editor/guest 密码 : 随便填</span>
+                </Form.Item>
+              </Spin>
+            </Form>
+          </TabPane>
+        </Tabs>
       </div>
-    </DocumentTitle>
   );
 };
 
