@@ -4,7 +4,7 @@ import "./index.less";
 import PanelGroup from "./components/PanelGroup";
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
-import RaddarChart from "./components/RaddarChart";
+import radarChart from "./components/RaddarChart";
 import PieChart from "./components/PieChart";
 import TransactionTable from "./components/TransactionTable";
 import BoxCard from "./components/BoxCard";
@@ -58,7 +58,7 @@ const Dashboard = () => {
       <Row gutter={32}>
         <Col xs={24} sm={24} lg={8}>
           <div className="chart-wrapper">
-            <RaddarChart />
+            <radarChart />
           </div>
         </Col>
         <Col xs={24} sm={24} lg={8}>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
-import { Upload, Icon, message } from "antd";
+import {Upload, message, Button} from "antd";
 import XLSX from "xlsx";
+import {InboxOutlined} from "@ant-design/icons";
 const { Dragger } = Upload;
 
 const getHeaderRow = (sheet) => {
@@ -88,7 +89,9 @@ class UploadExcel extends Component {
       <div>
         <Dragger {...this.draggerProps()}>
           <p className="ant-upload-drag-icon">
-            <Icon type="inbox" />
+            <Button
+                icon={<InboxOutlined />}
+            />
           </p>
           <p className="ant-upload-text">
             Click or drag file to this area to upload

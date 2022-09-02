@@ -3,7 +3,6 @@ import {
   Table,
   Tag,
   Form,
-  Icon,
   Button,
   Input,
   Radio,
@@ -140,7 +139,7 @@ class Excel extends Component {
                 <Input
                   style={{ width: "250px" }}
                   prefix={
-                    <Icon type="file" style={{ color: "rgba(0,0,0,.25)" }} />
+                    <Button>什么</Button>
                   }
                   placeholder="请输入文件名(默认excel-file)"
                   onChange={this.filenameChange}

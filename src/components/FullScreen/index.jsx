@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
-import screenfull from "screenfull";
-import { Icon, message, Tooltip } from "antd";
+import screenFull from "screenfull";
+import {Button, message, Tooltip} from "antd";
 import "./index.less";
+import {SmileOutlined} from "@ant-design/icons";
 
 const click = () => {
-  if (!screenfull.isEnabled) {
+  if (!screenFull.isEnabled) {
     message.warning("you browser can not work");
     return false;
   }
-  screenfull.toggle();
+  screenFull.toggle();
 };
 
 const FullScreen = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const change = () => {
-    setIsFullscreen(screenfull.isFullscreen);
+    setIsFullscreen(screenFull.isFullscreen);
   };
 
   useEffect(() => {
-    screenfull.isEnabled && screenfull.on("change", change);
+    screenFull.isEnabled && screenFull.on("change", change);
     return () => {
-      screenfull.isEnabled && screenfull.off("change", change);
+      screenFull.isEnabled && screenFull.off("change", change);
     };
   }, []);
 
@@ -30,7 +31,10 @@ const FullScreen = () => {
   return (
     <div className="fullScreen-container">
       <Tooltip placement="bottom" title={title}>
-        <Icon type={type} onClick={click} />
+        <Button
+            icon={<SmileOutlined />}
+            onClick={click}
+        />
       </Tooltip>
     </div>
   );

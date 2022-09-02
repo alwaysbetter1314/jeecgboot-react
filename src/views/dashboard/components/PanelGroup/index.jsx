@@ -1,7 +1,8 @@
 import React from "react";
-import { Row, Col, Icon } from "antd";
+import {Row, Col, Button} from "antd";
 import CountUp from "react-countup";
 import "./index.less";
+import {SmileOutlined} from "@ant-design/icons";
 
 const chartList = [
   {
@@ -46,10 +47,8 @@ const PanelGroup = (props) => {
           >
             <div className="card-panel">
               <div className="card-panel-icon-wrapper">
-                <Icon
-                  className={chart.type}
-                  style={{ fontSize: 55, color: chart.color }}
-                  type={chart.icon}
+                <Button
+                    icon={<SmileOutlined />}
                 />
               </div>
               <div className="card-panel-description">

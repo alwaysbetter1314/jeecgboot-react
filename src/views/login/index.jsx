@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Icon, Input, Button, message, Spin } from "antd";
+import { Form, Input, Button, message, Spin } from "antd";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 import "./index.less";
 import { login, getUserInfo } from "@/store/actions";
+import {LockOutlined, UserAddOutlined} from "@ant-design/icons";
 
 const Login = (props) => {
-  const { form, token, login, getUserInfo } = props;
-  const { getFieldDecorator } = form;
-
+  const { token, login, getUserInfo } = props;
   const [loading, setLoading] = useState(false);
 
   const handleLogin = (username, password) => {
     // 登录完成后 发送请求 调用接口获取用户信息
     setLoading(true);
-    login(username, password)
-      .then((data) => {
+    login(username, password).then((data) => {
         message.success("登录成功");
         handleUserInfo(data.token);
       })
@@ -25,6 +23,10 @@ const Login = (props) => {
         message.error(error);
       });
   };
+
+  const handleFailed = e =>{
+    console.log('Failed:', e);
+  }
 
   // 获取用户信息
   const handleUserInfo = (token) => {
@@ -35,20 +37,11 @@ const Login = (props) => {
       });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (values) => {
     // 阻止事件的默认行为
-    event.preventDefault();
-
-    // 对所有表单字段进行检验
-    form.validateFields((err, values) => {
-      // 检验成功
-      if (!err) {
-        const { username, password } = values;
-        handleLogin(username, password);
-      } else {
-        console.log("检验失败!");
-      }
-    });
+    // event.preventDefault();
+    const { username, password } = values;
+    handleLogin(username, password);
   };
 
   if (token) {
@@ -57,49 +50,38 @@ const Login = (props) => {
   return (
     <DocumentTitle title={"用户登录"}>
       <div className="login-container">
-        <Form onSubmit={handleSubmit} className="content">
+        <Form
+            className="content"
+            onFinish={handleSubmit}
+            onFinishFailed={handleFailed}
+        >
           <div className="title">
             <h2>用户登录</h2>
           </div>
           <Spin spinning={loading} tip="登录中...">
-            <Form.Item>
-              {getFieldDecorator("username", {
-                rules: [
-                  {
-                    required: true,
-                    whitespace: true,
-                    message: "请输入用户名",
-                  },
-                ],
-                initialValue: "admin", // 初始值
-              })(
-                <Input
+            <Form.Item
+                label={'用户名'}
+                name={'username'}
+                rules={[{ required: true, message: 'Please input your 用户名!' }]}
+            >
+              <Input
                   prefix={
-                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                    <UserAddOutlined />
                   }
                   placeholder="用户名"
                 />
-              )}
             </Form.Item>
-            <Form.Item>
-              {getFieldDecorator("password", {
-                rules: [
-                  {
-                    required: true,
-                    whitespace: true,
-                    message: "请输入密码",
-                  },
-                ],
-                initialValue: "123456", // 初始值
-              })(
+            <Form.Item
+                label={'密码'}
+                name={'password'}
+                rules={[{ required: true, message: 'Please input your 密码!' }]}>
                 <Input
                   prefix={
-                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    <LockOutlined style={{ color: "rgba(0,0,0,.25)" }}/>
                   }
                   type="password"
                   placeholder="密码"
                 />
-              )}
             </Form.Item>
             <Form.Item>
               <Button
@@ -124,7 +106,7 @@ const Login = (props) => {
   );
 };
 
-const WrapLogin = Form.create()(Login);
+const WrapLogin = Login;
 
 export default connect((state) => state.user, { login, getUserInfo })(
   WrapLogin

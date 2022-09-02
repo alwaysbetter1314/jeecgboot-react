@@ -63,4 +63,4 @@ class EditUserForm extends Component {
   }
 }
 
-export default Form.create({ name: "EditUserForm" })(EditUserForm);
+export default EditUserForm;

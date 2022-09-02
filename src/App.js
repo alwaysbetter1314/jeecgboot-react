@@ -4,9 +4,10 @@ import { ConfigProvider } from "antd";
 import zhCN from "antd/es/locale/zh_CN";
 import store from "./store";
 import Router from "./router";
+import "antd/lib/style/index.css"
 
 class App extends Component {
-  render() { 
+  render() {
     return (
       <ConfigProvider locale={zhCN}>
         <Provider store={store}>
@@ -16,5 +17,5 @@ class App extends Component {
     );
   }
 }
- 
+
 export default App;

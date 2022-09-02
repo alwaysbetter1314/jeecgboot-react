@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Tag, Form, Icon, Button, Input, message, Collapse } from "antd";
+import { Table, Tag, Form, Button, Input, message, Collapse } from "antd";
 import { excelList } from "@/api/excel";
 const { Panel } = Collapse;
 const columns = [
@@ -116,7 +116,7 @@ class Zip extends Component {
                 <Input
                   style={{ width: "250px" }}
                   prefix={
-                    <Icon type="file" style={{ color: "rgba(0,0,0,.25)" }} />
+                    <Button>蛇皮</Button>
                   }
                   placeholder="请输入文件名(默认file)"
                   onChange={this.filenameChange}

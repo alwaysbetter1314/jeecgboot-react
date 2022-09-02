@@ -80,4 +80,4 @@ class EditForm extends Component {
   }
 }
 
-export default Form.create({ name: "EditForm" })(EditForm);
+export default EditForm;
