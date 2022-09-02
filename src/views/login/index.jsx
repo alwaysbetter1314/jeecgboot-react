@@ -106,8 +106,6 @@ const Login = (props) => {
   );
 };
 
-const WrapLogin = Login;
-
 export default connect((state) => state.user, { login, getUserInfo })(
-  WrapLogin
+  Login
 );

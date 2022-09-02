@@ -2,6 +2,7 @@
 const path = require('path')
 const  resolve = (dir) => path.join(__dirname, dir);
 const cracoLessPlugin = require('craco-less')
+const CracoAntDesignPlugin = require("craco-antd");
 const { loaderByName } = require('@craco/craco')
 
 module.exports = {
@@ -24,6 +25,10 @@ module.exports = {
         }
     },
     plugins: [
+        // 配置antd样式，免得不生效
+        {
+            plugin: CracoAntDesignPlugin
+        },
         // 配置less相关
         {
             plugin: cracoLessPlugin,

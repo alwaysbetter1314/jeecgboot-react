@@ -7,7 +7,7 @@ build/
 /.pnp
 .pnp.js
 
-push.bat
+.push.bat
 
 # testing
 /coverage
